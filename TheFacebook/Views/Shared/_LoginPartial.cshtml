@@ -1,4 +1,5 @@
 ﻿@using Microsoft.AspNet.Identity
+
 @if (Request.IsAuthenticated)
 {
     using (Html.BeginForm("LogOff", "Account", FormMethod.Post, new { id = "logoutForm", @class = "navbar-right" }))
@@ -20,3 +21,8 @@ else
         <li>@Html.ActionLink("Log in", "Login", "Account", routeValues: null, htmlAttributes: new { id = "loginLink" })</li>
     </ul>
 }
+
+    <form class="form-inline my-2 my-lg-0 navbar-right nav navbar-nav" asp-controller="Home" asp-action="Index">
+        <input class="form-control mr-sm-2" type="text" placeholder="Search user by name" name="SearchString">
+        <input type="submit" value="Search"/>
+    </form>

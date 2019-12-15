@@ -1,0 +1,22 @@
+﻿@model TheFacebook.Models.Person
+@{
+    ViewBag.Title = "Adaugare persoana";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post" action="/Home/NewPerson">
+    @Html.HiddenFor(m => m.personId)
+    <br />
+    <br />
+
+    @Html.Label("username", "Nume")
+    <br />
+
+    @Html.TextBox("username", null, new { @class = "form-control" })
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Adauga persoana</button>
+</form>
+
