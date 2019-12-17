@@ -1,0 +1,23 @@
+﻿@model TheFacebook.Models.Gallery
+
+@{
+    ViewBag.Title = "Show Gallery";
+}
+
+<h1>  @Model.GalleryName gallery </h1>
+
+<h2> Galleries </h2>
+@foreach (TheFacebook.Models.Photo photo in Model.Photos)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @photo.PhotoName
+            @*<a class="btn btn-sm btn-success" href="/Photo/Show/@photo.PhotoId">Afisare fotografie</a>*@
+        </div>
+        @*<a class="btn btn-sm btn-success" href="/Photo/New/">Adauga poza</a>*@
+    </div>
+    <br />
+    <br />
+}
+
+

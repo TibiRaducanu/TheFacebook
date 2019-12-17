@@ -1,17 +1,5 @@
 ﻿@{
-    ViewBag.Title = "Afisare persoane cu numele " + ViewBag.SearchedName;
+    ViewBag.Title = "Index HomeController";
 }
 
 <h2>@ViewBag.Title</h2>
-
-@foreach(TheFacebook.Models.Person person in ViewBag.people)
-{
-    <div class="panel panel-default">
-        <div class="panel-heading">@person.personId</div>
-        <div class="panel-heading">@person.username</div>
-    </div>
-    <br />
-    <br />
-}
-
-<a class="btn btn-success" href="/Home/NewPerson">Adauga persoana</a>
