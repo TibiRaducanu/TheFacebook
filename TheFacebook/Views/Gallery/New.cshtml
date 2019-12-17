@@ -1,0 +1,24 @@
+﻿@model TheFacebook.Models.Gallery
+@{
+    ViewBag.Title = "Add gallery";
+}
+
+<h2>@ViewBag.Title</h2>
+
+<form method="post" action="/Gallery/New">
+    @Html.HiddenFor(m => m.UploadedBy)
+
+    @Html.HiddenFor(m => m.GalleryID)
+    <br />
+    <br />
+
+    @Html.Label("GalleryName", "Nume")
+    <br />
+
+    @Html.TextBox("GalleryName", null, new { @class = "form-control" })
+    @Html.ValidationMessage("GalleryName", "", new { @class = "text-danger" })
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Adauga galerie</button>
+</form>

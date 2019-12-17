@@ -7,8 +7,8 @@ namespace TheFacebook.Models
 {
     public class Group
     {
-        public int groupId { get; set; }
-        public string groupName { get; set; }
-        public virtual ICollection<Person> people { get; set; }
+        public int GroupId { get; set; }
+        public string GroupName { get; set; }
+        public virtual ICollection<Person> People { get; set; }
     }
 }

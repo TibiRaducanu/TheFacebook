@@ -7,8 +7,8 @@ namespace TheFacebook.Models
 {
     public class Comment
     {
-        public int commentId { get; set; }
-        public string commentText { get; set; }
-        public int createdBy { get; set; }
+        public int CommentId { get; set; }
+        public string CommentText { get; set; }
+        public int CreatedBy { get; set; }
     }
 }

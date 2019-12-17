@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.ComponentModel.DataAnnotations;
 using System.Linq;
 using System.Web;
 
@@ -7,12 +8,18 @@ namespace TheFacebook.Models
 {
     public class Person
     {
-        public int personId { get; set; }
-        public string username { get; set; }
-        public string mail { get; set; }
-        public virtual ICollection<Gallery> galleries { get; set; }
-        public virtual ICollection<Person> friends { get; set; }
-        public virtual ICollection<Group> groups { get; set; }
-        public bool privateUser { get; set; }
+        [Key]
+        public int PersonId { get; set; }
+        [Required(ErrorMessage = "Username-ul este obligatoriu!")]
+        [StringLength(20, ErrorMessage = "Username-ul nu poate avea mai mult de 20 de caractere!")]
+        public string Username { get; set; }
+        public string Mail { get; set; }
+        public virtual ICollection<Gallery> Galleries { get; set; }
+        public virtual ICollection<Person> Friends { get; set; }
+
+        public virtual ICollection<Group> Groups { get; set; }
+        public bool PrivateUser { get; set; }
+        public string UserId { get; set; }
+        public virtual ApplicationUser User { get; set; }
     }
 }

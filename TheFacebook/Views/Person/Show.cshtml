@@ -1,0 +1,22 @@
+﻿@model TheFacebook.Models.Person
+
+@{
+    ViewBag.Title = "Show Profile";
+}
+
+<h1>  @(Model.Username) 's profile </h1>
+
+<h2> Galleries </h2>
+@foreach (TheFacebook.Models.Gallery gallery in Model.Galleries)
+{
+    <div class="panel panel-default">
+        <div class="panel-heading">
+            @gallery.GalleryName
+            <a class="btn btn-sm btn-success" href="/Gallery/Show/@gallery.GalleryID">Afisare galerie</a>
+        </div>
+    </div>
+    <br />
+    <br />
+}
+
+<a class="btn btn-sm btn-success" href="/Gallery/New/@Model.PersonId">Adauga galerie</a>

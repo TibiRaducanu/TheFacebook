@@ -1,13 +1,12 @@
-﻿
+﻿@model TheFacebook.Models.Person
 @{
     ViewBag.Title = "Adaugare persoana";
 }
 
 <h2>@ViewBag.Title</h2>
 
-@*
-<form method="post" action="/Home/NewPerson">
-    @Html.HiddenFor(m => m.PersonId)
+<form method="post" action="/Person/New">
+    @Html.HiddenFor(m => m.UserId)
     <br />
     <br />
 
@@ -15,8 +14,11 @@
     <br />
 
     @Html.TextBox("Username", null, new { @class = "form-control" })
+    @Html.ValidationMessage("Username", "", new { @class = "text-danger" })
     <br />
     <br />
 
     <button class="btn btn-success" type="submit">Adauga persoana</button>
-</form>*@
+</form>
+
+
