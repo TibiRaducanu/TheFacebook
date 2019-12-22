@@ -51,7 +51,7 @@ namespace TheFacebook.Controllers
                 TempData["message"] = "Galeria cu numele " + g.GalleryName + " a fost adaugata!";
                 db.SaveChanges();
 
-                return RedirectToAction("Show", "Person");
+                return RedirectToAction("Show", "Person", new { id = person.PersonId});
             }
             catch (Exception e)
             {
