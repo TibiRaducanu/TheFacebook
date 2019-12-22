@@ -34,7 +34,7 @@ namespace TheFacebook.Controllers
         public ActionResult New(int id)
         {
             Gallery newGallery = new Gallery();
-            newGallery.UploadedBy = id;
+            newGallery.PersonId = id;
             return View(newGallery);
         }
 
@@ -45,18 +45,18 @@ namespace TheFacebook.Controllers
             {
                 db.Galleries.Add(g);
 
-                Person person = db.People.Find(g.UploadedBy); // Referinta
+                Person person = db.People.Find(g.PersonId); // Referinta
                 person.Galleries.Add(g);
 
                 TempData["message"] = "Galeria cu numele " + g.GalleryName + " a fost adaugata!";
                 db.SaveChanges();
 
-                return RedirectToAction("Index");
+                return RedirectToAction("Show", "Person");
             }
             catch (Exception e)
             {
                 TempData["message"] = e.Message;
-                return RedirectToAction("Index");
+                return RedirectToAction("");
             }
         }
     }

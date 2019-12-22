@@ -1,6 +1,6 @@
 ﻿@model TheFacebook.Models.Person
 @{
-    ViewBag.Title = "Adaugare persoana";
+    ViewBag.Title = "Creaza-ti profilul";
 }
 
 <h2>@ViewBag.Title</h2>
@@ -18,7 +18,10 @@
     <br />
     <br />
 
-    <button class="btn btn-success" type="submit">Adauga persoana</button>
+    @Html.RadioButtonFor(m => m.PrivateUser, "True") Private
+    @Html.RadioButtonFor(m => m.PrivateUser, "False") Public
+    <br />
+    <br />
+
+    <button class="btn btn-success" type="submit">Creeaza profil</button>
 </form>
-
-

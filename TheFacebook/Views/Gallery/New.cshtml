@@ -6,7 +6,7 @@
 <h2>@ViewBag.Title</h2>
 
 <form method="post" action="/Gallery/New">
-    @Html.HiddenFor(m => m.UploadedBy)
+    @Html.HiddenFor(m => m.PersonId)
 
     @Html.HiddenFor(m => m.GalleryID)
     <br />
