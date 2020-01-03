@@ -22,7 +22,7 @@ else
     </ul>
 }
 
-@using (Html.BeginForm("ShowUsers", "Person", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0 navbar-right nav navbar-nav", role = "form" }))
+@using (Html.BeginForm("ShowUsers", "Home", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0 navbar-right nav navbar-nav", role = "form", id = "searchBar"}))
 {
     <input class="form-control mr-sm-2" type="text" placeholder="Search user by name" name="searchName" />
     <button class="btn btn-sm btn-success" type="submit">Cautare profil</button>

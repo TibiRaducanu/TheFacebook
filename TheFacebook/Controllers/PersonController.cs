@@ -24,18 +24,13 @@ namespace TheFacebook.Controllers
             return View();
         }
 
-        public ActionResult ShowUsers(string searchName)
-        {
-            var people = from p in db.People where p.Username == searchName select p;
-
-            ViewBag.People = people;
-            ViewBag.SearchedName = searchName;
-
-            return View();
-        }
-
         public ActionResult Show(int id)
         {
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"].ToString();
+            }
+
             //int id = Convert.ToInt32(personId);
             Person person = db.People.Find(id);
             return View(person);
@@ -55,9 +50,9 @@ namespace TheFacebook.Controllers
             try
             {
                 db.People.Add(p);
-                TempData["message"] = "Profilul cu numele " + p.Username + " a fost adaugat!";
+                TempData["message"] = "Profilul cu numele " + p.Username + " a fost adaugat!" + "Profilul este " + p.PrivateUser;
                 db.SaveChanges();
-                return RedirectToAction("Index");
+                return RedirectToAction("Show", new { id = p.PersonId });
             }
             catch (Exception e)
             {

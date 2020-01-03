@@ -31,5 +31,15 @@ namespace TheFacebook.Controllers
 
             return View();
         }
+
+        public ActionResult ShowUsers(string searchName)
+        {
+            var people = from p in db.People where p.Username == searchName select p;
+
+            ViewBag.People = people;
+            ViewBag.SearchedName = searchName;
+
+            return View();
+        }
     }
 }

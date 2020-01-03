@@ -13,7 +13,7 @@ namespace TheFacebook.Models
         [Required(ErrorMessage = "Numele galeriei este obligatoriu!")]
         [StringLength(20, ErrorMessage = "Numele galeriei nu poate avea mai mult de 20 de caractere")]
         public string GalleryName { get; set; }
-        public int UploadedBy { get; set; }
+        public int PersonId { get; set; }
         public virtual ICollection<Photo> Photos { get; set; }
     }
 }
