@@ -46,6 +46,6 @@ textarea {
 }
 
 #searchBar {
-    #text-align: center;
+    text-align: center;
     padding: 1%;
 }
