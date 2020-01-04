@@ -4,7 +4,8 @@
     ViewBag.Title = "Show";
 }
 
-<h2>Show</h2>
+<h3>@ViewBag.Message</h3>
+<h2>Show photo</h2>
 
 <div>
     <h4>Photo</h4>
@@ -38,22 +39,34 @@
 
     </dl>
 
-    @foreach(TheFacebook.Models.Comment comment in Model.Comments)
+    @foreach (TheFacebook.Models.Comment comment in Model.Comments)
     {
-    <div class="panel panel-default">
-        @comment.Text
-        <br />
-        @comment.Date
-        <br />
-        @ViewBag.UserName
-        <br />
-        <br />
-    </div>
+        <div class="panel panel-default">
+            @comment.Text
+            <br />
+            @comment.Date
+            <br />
+            @ViewBag.UserName
+            <br />
+            <br />
+
+            @if (comment.UserId == ViewBag.currentUser || ViewBag.isAdmin)
+            {
+                using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { photoId = Model.PhotoId, commentId = comment.CommentId}, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+                {
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    
+                    <button class="btn btn-success" type="submit">Sterge comentariu</button>
+                }
+            }
+
+        </div>
     }
 
-    @using (Html.BeginForm("New", "Comment", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form", id = "commentBox"}))
+    @using (Html.BeginForm("New", "Comment", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form", id = "commentBox" }))
     {
-        <input class="form-control mr-sm-2" type="text" placeholder="Adauga un comentariu" name="text" aux="@Model.PhotoId"/>
+        @Html.Hidden("photoId", Model.PhotoId)
+        <input class="form-control mr-sm-2" type="text" placeholder="Adauga un comentariu" name="text" />
         <button class="btn btn-sm btn-success" type="submit">Comenteaza</button>
     }
 </div>

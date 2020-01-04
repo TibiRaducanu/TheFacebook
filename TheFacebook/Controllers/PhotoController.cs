@@ -28,6 +28,15 @@ namespace TheFacebook.Controllers
             Photo photo = db.Photos.Find(id);
             string userId = User.Identity.GetUserId();
             ViewBag.UserName = (from person in db.People where (person.UserId == userId) select person.Username).FirstOrDefault();
+
+            if (TempData.ContainsKey("message"))
+            {
+                ViewBag.Message = TempData["message"].ToString();
+            }
+
+            ViewBag.currentUser = User.Identity.GetUserId();
+            ViewBag.isAdmin = User.IsInRole("Administrator");
+
             return View(photo);
         }
 
