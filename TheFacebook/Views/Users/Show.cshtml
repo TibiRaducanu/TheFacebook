@@ -1,0 +1,37 @@
+﻿@model TheFacebook.Models.ApplicationUser
+
+@{
+    ViewBag.Title = "Vizualizare utilizator";
+}
+
+<ol class="breadcrumb">
+    <li>
+        <h3>@ViewBag.Title</h3>
+    </li>
+</ol>
+
+<ul class="list-group">
+    <li class="list-group-item active">
+        Nume utilizator: @Model.UserName
+    </li>
+    <li class="list-group-item">
+        <i class="glyphicon glyphicon-envelope"></i> Email utilizator: <span class="label label-default">@Model.Email</span>
+    </li>
+    @if (@Model.PhoneNumber != null)
+    {
+        <li>
+            <i class="glyphicon glyphicon-phone"></i>:Telefon utilizator:<span class="label label-default">Model.PhoneNumber</span>
+        </li>
+    }
+</ul>
+
+    @foreach (var role in ViewBag.Roless)
+    {
+        <div class="panel-heading">Rol: </div>
+        <br />
+        <br />
+    }
+
+<div class="panel-footer">
+    <a class="btn btn-sm btn-primary" href="/Users/Delete/@Model.Id">Sterge utilizator</a>
+</div>

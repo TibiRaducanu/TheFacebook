@@ -36,8 +36,28 @@ namespace TheFacebook.Controllers
             db.SaveChanges();
             TempData["message"] = "Comentariul a fost adaugat!";
 
-
             return RedirectToAction("Show", "Photo", new { id = photoId });
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int photoId, int commentId)
+        {
+            Photo photo = db.Photos.Find(photoId);
+            Comment commentToDelete = db.Comments.Find(commentId);
+
+            if (commentToDelete.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
+            {
+                photo.Comments.Remove(commentToDelete);
+                db.Comments.Remove(commentToDelete);
+                db.SaveChanges();
+                TempData["message"] = "Comentariul a fost sters cu succes!";
+                return RedirectToAction("Show", "Photo", new { id = photoId});
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti un comentariu care nu va apartine!";
+                return RedirectToAction("Show", "Photo", new { id = photoId});
+            }
         }
     }
 }
