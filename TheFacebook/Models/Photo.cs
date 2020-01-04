@@ -14,11 +14,10 @@ namespace TheFacebook.Models
         [Key]
         public int PhotoId { get; set; }
         public string PhotoName { get; set; }
-        [DisplayName("Upload file")] 
-        //public ImageSource Portrait { get; set; }
-        public string ImagePath { get; set; }
-        //public HttpPostedFileBase ImageFile { get; set; }
+        [DisplayName("Upload file")]
+        public string Image { get; set; } 
         public virtual ICollection<Comment> Comments { get; set; }
         public int GalleryId { get; set; }
+        //public virtual Gallery Gallery { get; set; }
     }
 }

@@ -19,11 +19,13 @@
         </dd>
 
         <dt>
-            @Html.DisplayNameFor(model => model.ImagePath)
+            @Html.DisplayNameFor(model => model.Image)
         </dt>
-
         <dd>
-            @Html.DisplayFor(model => model.ImagePath)
+            <!-- <img src="~/Photo?id=Model.PhotoId" alt="avatar" /> -->
+            <!--Html.DisplayFor(model => model.Content) -->
+
+            <img height="100px" width="100px" src="@String.Format("data:image/jpg;base64,{0}", Model.Image)" />
         </dd>
 
         <dt>
@@ -35,6 +37,25 @@
         </dd>
 
     </dl>
+
+    @foreach(TheFacebook.Models.Comment comment in Model.Comments)
+    {
+    <div class="panel panel-default">
+        @comment.Text
+        <br />
+        @comment.Date
+        <br />
+        @ViewBag.UserName
+        <br />
+        <br />
+    </div>
+    }
+
+    @using (Html.BeginForm("New", "Comment", FormMethod.Post, new { @class = "form-inline my-2 my-lg-0", role = "form", id = "commentBox"}))
+    {
+        <input class="form-control mr-sm-2" type="text" placeholder="Adauga un comentariu" name="text" aux="@Model.PhotoId"/>
+        <button class="btn btn-sm btn-success" type="submit">Comenteaza</button>
+    }
 </div>
 <p>
     @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoId }) |
