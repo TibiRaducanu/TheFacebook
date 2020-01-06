@@ -26,8 +26,10 @@ namespace TheFacebook.Controllers
 
         public ActionResult Show(int id)
         {
-            //int id = Convert.ToInt32(personId);
             Gallery gallery = db.Galleries.Find(id);
+            string myUser = User.Identity.GetUserId();
+            int myId = (from person in db.People where (person.UserId == myUser) select person.PersonId).FirstOrDefault();
+            ViewBag.MyProfile = gallery.PersonId == myId;
             return View(gallery);
         }
 

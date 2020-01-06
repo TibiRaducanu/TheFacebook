@@ -28,6 +28,7 @@ namespace TheFacebook.Controllers
             Photo photo = db.Photos.Find(id);
             string userId = User.Identity.GetUserId();
             ViewBag.UserName = (from person in db.People where (person.UserId == userId) select person.Username).FirstOrDefault();
+            ViewBag.People = db.People;
 
             if (TempData.ContainsKey("message"))
             {

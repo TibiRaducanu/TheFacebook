@@ -6,6 +6,7 @@ using System.Web;
 
 namespace TheFacebook.Models
 {
+
     public class Person
     {
         [Key]
@@ -15,8 +16,7 @@ namespace TheFacebook.Models
         public string Username { get; set; }
         public string Mail { get; set; }
         public virtual ICollection<Gallery> Galleries { get; set; }
-        public virtual ICollection<Person> Friends { get; set; }
-
+        public virtual ICollection<Person> Requests { get; set; }
         public virtual ICollection<Group> Groups { get; set; }
         public bool PrivateUser { get; set; }
         public string UserId { get; set; }

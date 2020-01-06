@@ -12,7 +12,7 @@
         <div class="panel-heading">
             @photo.PhotoName
             <br />
-            <img height="50px" width="50px" src="@String.Format("data:image/jpg;base64,{0}", @photo.Image)" />
+            <img height="75" width="75" src="@String.Format("data:image/jpg;base64,{0}", @photo.Image)" />
             <br />
             <a class="btn btn-sm btn-success" href="/Photo/Show/@photo.PhotoId">Afisare fotografie</a>
         </div>
@@ -21,6 +21,10 @@
 }
 
 <br />
-<a class="btn btn-sm btn-success" href="/Photo/New/@Model.GalleryID">Adauga poza</a>
+
+@if(ViewBag.MyProfile == true)
+{
+    <a class="btn btn-sm btn-success" href="/Photo/New/@Model.GalleryID">Adauga poza</a>
+}
 
 

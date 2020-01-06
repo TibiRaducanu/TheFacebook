@@ -26,7 +26,7 @@
             <!-- <img src="~/Photo?id=Model.PhotoId" alt="avatar" /> -->
             <!--Html.DisplayFor(model => model.Content) -->
 
-            <img height="100px" width="100px" src="@String.Format("data:image/jpg;base64,{0}", Model.Image)" />
+            <img height="150" width="150" src="@String.Format("data:image/jpg;base64,{0}", Model.Image)" />
         </dd>
 
         <dt>
@@ -46,7 +46,7 @@
             <br />
             @comment.Date
             <br />
-            @ViewBag.UserName
+            @comment.CreatedBy
             <br />
             <br />
 
@@ -56,7 +56,7 @@
                 {
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
                     
-                    <button class="btn btn-success" type="submit">Sterge comentariu</button>
+                    <button class="btn btn-success" type="submit"> Sterge comentariu </button>
                 }
             }
 
@@ -67,7 +67,7 @@
     {
         @Html.Hidden("photoId", Model.PhotoId)
         <input class="form-control mr-sm-2" type="text" placeholder="Adauga un comentariu" name="text" />
-        <button class="btn btn-sm btn-success" type="submit">Comenteaza</button>
+        <button class="btn btn-sm btn-success" type="submit"> Comenteaza </button>
     }
 </div>
 <p>

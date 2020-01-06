@@ -37,6 +37,8 @@ namespace TheFacebook.Models
 
         public DbSet<Photo> Photos { get; set; }
 
+        public DbSet<Friend> Friends { get; set; }
+
         public DbSet<Comment> Comments { get; set; }
 
         public static ApplicationDbContext Create()

@@ -29,6 +29,7 @@ namespace TheFacebook.Controllers
             newComment.Text = text;
             newComment.Date = DateTime.Now;
             newComment.UserId = User.Identity.GetUserId();
+            newComment.CreatedBy = (from person in db.People where (person.UserId == newComment.UserId) select person.Username).FirstOrDefault();
             newComment.PhotoId = photoId;
             db.Comments.Add(newComment);
             Photo photo = db.Photos.Find(photoId);

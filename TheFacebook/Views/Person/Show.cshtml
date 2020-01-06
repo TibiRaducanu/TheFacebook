@@ -7,17 +7,88 @@
 <h2>@ViewBag.Message</h2>
 <h1>  @(Model.Username) 's profile </h1>
 
-<h2> Galleries </h2>
-@foreach (TheFacebook.Models.Gallery gallery in Model.Galleries)
+##### Caz 1 - il avem la prieteni
+Apare mesajul "Friends"
+
+##### Caz 2 - nu il avem la prieteni
+Apare mesajul "Send friend request"
+
+##### Caz 3 - am mai trimis cerere, dar nu a acceptat
+Apare mesajul "Pending"
+
+@if (ViewBag.IsAuthenticated == true && ViewBag.MyProfile == false)
 {
-    <div class="panel panel-default">
-        <div class="panel-heading">
-            @gallery.GalleryName
-            <a class="btn btn-sm btn-success" href="/Gallery/Show/@gallery.GalleryID">Afisare galerie</a>
-        </div>
-    </div>
-    <br />
-    <br />
+    if (ViewBag.IsFriend == true)
+    {
+        <h3> Friends </h3>
+    }
+    else
+    {
+        if (ViewBag.Pending == true)
+        {
+            <h3> Pending </h3>
+        }
+        else
+        {
+            using (Html.BeginForm(actionName: "SendFriendRequest", controllerName: "Person", routeValues: new { receiverId = Model.PersonId, senderId = ViewBag.SenderId }, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+            {
+                <button class="btn btn-success" type="submit"> Send Friend Request </button>
+                <br />
+            }
+        }
+    }
 }
 
-<a class="btn btn-sm btn-success" href="/Gallery/New/@Model.PersonId">Adauga galerie</a>
+@if (Model.PrivateUser == true && ViewBag.IsFriend == false && ViewBag.MyProfile == false) //// daca sunt prieteni afiseaza
+{
+    if (ViewBag.IsAuthenticated == false)
+    {
+        <h2> Nu puteti vedea un cont privat daca nu sunteti autentificat. </h2>
+    }
+    else
+    {
+        <h2> Cont privat, trimiteti o cerere de prietenie. </h2>
+    }
+}
+else
+{
+    <h2> Galleries </h2>
+    foreach (TheFacebook.Models.Gallery gallery in Model.Galleries)
+    {
+        <div class="panel panel-default">
+            <div class="panel-heading">
+                @gallery.GalleryName
+                <a class="btn btn-sm btn-success" href="/Gallery/Show/@gallery.GalleryID">Afisare galerie</a>
+            </div>
+        </div>
+        <br />
+        <br />
+    }
+
+    if (ViewBag.MyProfile)
+    {
+        <a class="btn btn-sm btn-success" href="/Gallery/New/@Model.PersonId">Adauga galerie</a>
+    }
+}
+
+@if (ViewBag.MyProfile)
+{
+    // afiseaza cereri prietenie, cu accept
+    foreach (TheFacebook.Models.Person person in Model.Requests)
+    {
+        <div class="panel panel-default"> @person.Username </div>
+        <br />
+
+        using (Html.BeginForm(actionName: "AcceptFriendRequest", controllerName: "Person", routeValues: new { receiverId = Model.PersonId, senderId = person.PersonId }, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+        {
+            <button class="btn btn-success" type="submit"> Accept </button>
+            <br />
+        }
+
+        using (Html.BeginForm(actionName: "CancelFriendRequest", controllerName: "Person", routeValues: new { receiverId = Model.PersonId, senderId = person.PersonId }, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+        {
+            <button class="btn btn-success" type="submit"> Reject </button>
+            <br />
+        }
+    }
+}
