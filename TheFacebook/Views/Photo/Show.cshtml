@@ -5,18 +5,24 @@
 }
 
 <h3>@ViewBag.Message</h3>
-<h2>Show photo</h2>
 
 <div>
-    <h4>Photo</h4>
     <hr />
+
+    <!--<div class="card" style="width: 18rem;">
+        <img class="card-img-top" src="" alt="Card image cap">
+        <div class="card-body">
+            <h5 class="card-title">@Model.PhotoName</h5>
+        </div>
+    </div>-->
+
     <dl class="dl-horizontal">
         <dt>
             @Html.DisplayNameFor(model => model.PhotoName)
         </dt>
 
         <dd>
-            @Html.DisplayFor(model => model.PhotoName)
+            <i>@Html.DisplayFor(model => model.PhotoName)</i>
         </dd>
 
         <dt>
@@ -26,17 +32,8 @@
             <!-- <img src="~/Photo?id=Model.PhotoId" alt="avatar" /> -->
             <!--Html.DisplayFor(model => model.Content) -->
 
-            <img height="150" width="150" src="@String.Format("data:image/jpg;base64,{0}", Model.Image)" />
+            <img height="150" width="150" src="@String.Format("data:image/jpg;base64,{0}", Model.Image)"/>
         </dd>
-
-        <dt>
-            @Html.DisplayNameFor(model => model.GalleryId)
-        </dt>
-
-        <dd>
-            @Html.DisplayFor(model => model.GalleryId)
-        </dd>
-
     </dl>
 
     @foreach (TheFacebook.Models.Comment comment in Model.Comments)
@@ -52,10 +49,10 @@
 
             @if (comment.UserId == ViewBag.currentUser || ViewBag.isAdmin)
             {
-                using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { photoId = Model.PhotoId, commentId = comment.CommentId}, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+                using (Html.BeginForm(actionName: "Delete", controllerName: "Comment", routeValues: new { photoId = Model.PhotoId, commentId = comment.CommentId }, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
                 {
                     @Html.HttpMethodOverride(HttpVerbs.Delete)
-                    
+
                     <button class="btn btn-success" type="submit"> Sterge comentariu </button>
                 }
             }
@@ -70,7 +67,3 @@
         <button class="btn btn-sm btn-success" type="submit"> Comenteaza </button>
     }
 </div>
-<p>
-    @Html.ActionLink("Edit", "Edit", new { id = Model.PhotoId }) |
-    @Html.ActionLink("Back to List", "Index")
-</p>

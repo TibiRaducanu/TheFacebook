@@ -30,6 +30,7 @@ namespace TheFacebook.Controllers
             string myUser = User.Identity.GetUserId();
             int myId = (from person in db.People where (person.UserId == myUser) select person.PersonId).FirstOrDefault();
             ViewBag.MyProfile = gallery.PersonId == myId;
+
             return View(gallery);
         }
 
@@ -53,12 +54,33 @@ namespace TheFacebook.Controllers
                 TempData["message"] = "Galeria cu numele " + g.GalleryName + " a fost adaugata!";
                 db.SaveChanges();
 
-                return RedirectToAction("Show", "Person", new { id = person.PersonId});
+                return RedirectToAction("Show", "Person", new { id = person.PersonId });
             }
             catch (Exception e)
             {
                 TempData["message"] = e.Message;
                 return RedirectToAction("");
+            }
+        }
+
+        [HttpDelete]
+        public ActionResult Delete(int personId, int galleryId)
+        {
+            Person p = db.People.Find(personId);
+            Gallery galleryToDelete = db.Galleries.Find(galleryId);
+
+            if (p.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
+            {
+                p.Galleries.Remove(galleryToDelete);
+                db.Galleries.Remove(galleryToDelete);
+                db.SaveChanges();
+                TempData["message"] = "Galeria a fost stearsa cu succes!";
+                return RedirectToAction("Show", "Person", new { id = personId });
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti o galerie care nu va apartine!";
+                return RedirectToAction("Show", "Person", new { id = personId });
             }
         }
     }

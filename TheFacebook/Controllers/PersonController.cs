@@ -62,6 +62,8 @@ namespace TheFacebook.Controllers
                 }
             }
 
+            ViewBag.IsAdmin = User.IsInRole("Administrator");
+
             return View(person);
         }
 

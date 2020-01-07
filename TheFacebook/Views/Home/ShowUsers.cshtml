@@ -2,15 +2,15 @@
     ViewBag.Title = "Afisare persoane cu numele " + ViewBag.SearchedName;
 }
 
-<h2>@ViewBag.Title</h2>
+<!--<h2>@ViewBag.Title</h2>-->
+<br />
 
 @foreach (TheFacebook.Models.Person person in ViewBag.people)
 {
     <div class="panel panel-default">
-        <div class="panel-heading">@person.PersonId</div>
         <div class="panel-heading">
             @person.Username
-            <a class="btn btn-sm btn-success" href="/Person/Show/@person.PersonId">Afisare profil</a>
+            <a class="btn btn-sm btn-success" style="float: right;" href="/Person/Show/@person.PersonId">Show Profile</a>
         </div>
     </div>
     <br />

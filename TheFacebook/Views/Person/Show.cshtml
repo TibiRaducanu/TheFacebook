@@ -5,18 +5,9 @@
 }
 
 <h2>@ViewBag.Message</h2>
-<h1>  @(Model.Username) 's profile </h1>
+<h1 class="display-4"> @(Model.Username) 's profile </h1>
 
-##### Caz 1 - il avem la prieteni
-Apare mesajul "Friends"
-
-##### Caz 2 - nu il avem la prieteni
-Apare mesajul "Send friend request"
-
-##### Caz 3 - am mai trimis cerere, dar nu a acceptat
-Apare mesajul "Pending"
-
-@if (ViewBag.IsAuthenticated == true && ViewBag.MyProfile == false)
+@if (ViewBag.IsAuthenticated == true && ViewBag.MyProfile == false && ViewBag.IsAdmin == false)
 {
     if (ViewBag.IsFriend == true)
     {
@@ -39,7 +30,7 @@ Apare mesajul "Pending"
     }
 }
 
-@if (Model.PrivateUser == true && ViewBag.IsFriend == false && ViewBag.MyProfile == false) //// daca sunt prieteni afiseaza
+@if (Model.PrivateUser == true && ViewBag.IsFriend == false && ViewBag.MyProfile == false && ViewBag.IsAdmin == false) //// daca nu sunt prieteni afiseaza
 {
     if (ViewBag.IsAuthenticated == false)
     {
@@ -57,8 +48,19 @@ else
     {
         <div class="panel panel-default">
             <div class="panel-heading">
+
                 @gallery.GalleryName
+                <br />
+                <br />
                 <a class="btn btn-sm btn-success" href="/Gallery/Show/@gallery.GalleryID">Afisare galerie</a>
+                <br />
+                <br />
+                @using (Html.BeginForm(actionName: "Delete", controllerName: "Gallery", routeValues: new { personId = Model.PersonId, galleryId = gallery.GalleryID }, method: FormMethod.Post))
+                {
+                    @Html.HttpMethodOverride(HttpVerbs.Delete)
+                    <button class="btn btn-success" type="submit"> Delete gallery </button>
+                }
+                
             </div>
         </div>
         <br />

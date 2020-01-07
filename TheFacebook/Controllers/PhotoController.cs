@@ -80,5 +80,28 @@ namespace TheFacebook.Controllers
                 return RedirectToAction("");
             }
         }
+
+        [HttpDelete]
+        public ActionResult Delete(int galleryId, int photoId)
+        {
+            Gallery g = db.Galleries.Find(galleryId);
+            Photo photoToDelete = db.Photos.Find(photoId);
+            Person p = db.People.Find(g.PersonId);
+
+            if (p.UserId == User.Identity.GetUserId() || User.IsInRole("Administrator"))
+            {
+                //p.Galleries.Remove(galleryToDelete);
+                g.Photos.Remove(photoToDelete);
+                db.Photos.Remove(photoToDelete);
+                db.SaveChanges();
+                TempData["message"] = "Poza a fost stearsa cu succes!";
+                return RedirectToAction("Show", "Gallery", new { id = galleryId });
+            }
+            else
+            {
+                TempData["message"] = "Nu aveti dreptul sa stergeti o poza care nu va apartine!";
+                return RedirectToAction("Show", "Gallery", new { id = galleryId });
+            }
+        }
     }
 }

@@ -9,6 +9,13 @@
     @Scripts.Render("~/bundles/modernizr")
     @using Microsoft.AspNet.Identity
     @using TheFacebook.Models
+    <link href='https://fonts.googleapis.com/css?family=Montserrat' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Poiret+One' rel='stylesheet'
+          type='text/css'>
+    <link href='https://fonts.googleapis.com/css?family=Bree+Serif' rel='stylesheet'
+          type='text/css'>
+
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -19,14 +26,12 @@
                     <span class="icon-bar"></span>
                     <span class="icon-bar"></span>
                 </button>
-                @Html.ActionLink("Application name", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
+                @Html.ActionLink("TheFacebook", "Index", "Home", new { area = "" }, new { @class = "navbar-brand" })
             </div>
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
-                    <li>@Html.ActionLink("Home", "Index", "Home")</li>
 
-
-                    @if (User.Identity.IsAuthenticated == true)
+                    @if (User.Identity.IsAuthenticated == true && User.IsInRole("Administrator") == false)
                     {
                         ApplicationDbContext db = new ApplicationDbContext();
                         var currentUserId = User.Identity.GetUserId();
