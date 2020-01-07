@@ -41,6 +41,10 @@ namespace TheFacebook.Models
 
         public DbSet<Comment> Comments { get; set; }
 
+        public DbSet<MailBox> MailBoxes { get; set; }
+
+        public DbSet<Message> Messages { get; set; }
+
         public static ApplicationDbContext Create()
         {
             return new ApplicationDbContext();

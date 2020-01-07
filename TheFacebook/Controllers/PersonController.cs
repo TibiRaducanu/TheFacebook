@@ -32,10 +32,11 @@ namespace TheFacebook.Controllers
             }
 
             Person person = db.People.Find(id); // Showed profile
-            string currentUser = User.Identity.GetUserId(); // User logat
+            string currentUser = User.Identity.GetUserId(); // Logged UserId
 
             ViewBag.People = db.People;
             ViewBag.CurrentUser = currentUser;
+            ViewBag.UserMail = User.Identity.Name;
             var senderId = (from currPerson in db.People where (currPerson.UserId == currentUser) select currPerson.PersonId).FirstOrDefault();
             ViewBag.SenderId = senderId;
             ViewBag.IsAuthenticated = User.Identity.IsAuthenticated; // Check if a user is logged in
@@ -68,7 +69,11 @@ namespace TheFacebook.Controllers
         {
             Person newPerson = new Person();
             newPerson.UserId = User.Identity.GetUserId();
-
+            MailBox newMailBox = new MailBox();
+            newPerson.Mail = newMailBox;
+            newPerson.Mail.UserId = User.Identity.GetUserId();
+            db.MailBoxes.Add(newPerson.Mail);
+            db.SaveChanges();
             return View(newPerson);
         }
 
@@ -78,8 +83,8 @@ namespace TheFacebook.Controllers
             try
             {
                 db.People.Add(p);
-                TempData["message"] = "Profilul cu numele " + p.Username + " a fost adaugat!" + "Profilul este " + p.PrivateUser;
                 db.SaveChanges();
+                TempData["message"] = "Profilul cu numele " + p.Username + " a fost adaugat!" + "Profilul este " + p.PrivateUser;
                 return RedirectToAction("Show", new { id = p.PersonId });
             }
             catch (Exception e)

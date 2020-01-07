@@ -1,0 +1,42 @@
+﻿@using Microsoft.AspNet.Identity
+@using TheFacebook.Models
+
+@model TheFacebook.Models.MailBox
+@{
+    ViewBag.Title = "Show";
+}
+
+<h2>Show</h2>
+
+@foreach (TheFacebook.Models.Message message in ViewBag.Mails)
+{
+    ApplicationDbContext db = new ApplicationDbContext();
+    var name = (from person in db.People where (person.UserId == message.From) select person.Username).FirstOrDefault();
+    <div class="panel panel-default">
+        <h2> @name </h2>
+        <br />
+        <h3> @message.Date </h3>
+        <br />
+        <p> @message.Text </p>
+    </div>
+    <br />
+}
+
+@using (Html.BeginForm(actionName: "New", controllerName: "Message", routeValues: new { from = ViewBag.UserId, mailBoxId = Model.MailBoxId }, method: FormMethod.Post, htmlAttributes: new { @class = "form-inline my-2 my-lg-0", role = "form" }))
+{
+    <br />
+    <h2> Send a message </h2>
+    <br />
+    <label for="input"> Person's username </label>
+    <br />
+    <input class="form-control mr-sm-2" type="text" name="to" />
+    <br />
+    <br />
+    <label for="textarea"> Type your message </label>
+    <br />
+    <textarea class="form-control" placeholder="Bla bla bla" , name="message">  </textarea>
+    <br />
+    <br />
+    <button class="btn btn-sm btn-success" type="submit" , name=" = "> Send </button>
+}
+

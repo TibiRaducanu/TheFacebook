@@ -7,7 +7,8 @@
     @Styles.Render("~/Content/css")
     @Styles.Render("~/Content/Site.css")
     @Scripts.Render("~/bundles/modernizr")
-
+    @using Microsoft.AspNet.Identity
+    @using TheFacebook.Models
 </head>
 <body>
     <div class="navbar navbar-inverse navbar-fixed-top">
@@ -23,12 +24,21 @@
             <div class="navbar-collapse collapse">
                 <ul class="nav navbar-nav">
                     <li>@Html.ActionLink("Home", "Index", "Home")</li>
-                    <li>@Html.ActionLink("About", "About", "Home")</li>
-                    <li>@Html.ActionLink("Contact", "Contact", "Home")</li>
+
+
+                    @if (User.Identity.IsAuthenticated == true)
+                    {
+                        ApplicationDbContext db = new ApplicationDbContext();
+                        var currentUserId = User.Identity.GetUserId();
+                        var persId = (from currPerson in db.People where (currPerson.UserId == currentUserId) select currPerson.PersonId).FirstOrDefault();
+                        var mailBoxId = (from currMailBox in db.MailBoxes where (currMailBox.UserId == currentUserId) select currMailBox.MailBoxId).FirstOrDefault();
+                        <li>@Html.ActionLink("Profile", "Show", "Person", new { id = persId }, null)</li>
+                        <li>@Html.ActionLink("Mail", "Show", "MailBox", new { id = mailBoxId }, null)</li>
+                    }
 
                     @if (User.IsInRole("Administrator"))
                     {
-                        <li>@Html.ActionLink("Afisare utilizatori", "Index", "Users")</li>
+                        <li>@Html.ActionLink("Show Users", "Index", "Users")</li>
                     }
 
                 </ul>
